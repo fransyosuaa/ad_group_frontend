@@ -18,9 +18,7 @@ const CreateEditIpLabel = (props) => {
       ip: ipRef.current.value,
       label: labelRef.current.value
     };
-    console.log({ payload });
     const err = validateCreateIpForm(payload);
-    console.log({ err });
     if (Object.keys(err).length > 0) {
       setError(err);
       return;
@@ -77,5 +75,5 @@ const CreateEditIpLabel = (props) => {
 export default CreateEditIpLabel;
 
 CreateEditIpLabel.propTypes = {
-  mode: PropTypes.string
+  mode: PropTypes.string.isRequired
 };

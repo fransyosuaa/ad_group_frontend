@@ -5,7 +5,7 @@ const CreateTemplate = () => {
   return (
     <div className="container">
       <Card>
-        <CreateEditIpLabel />
+        <CreateEditIpLabel mode="create" />
       </Card>
     </div>
   );

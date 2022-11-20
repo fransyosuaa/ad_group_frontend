@@ -25,5 +25,5 @@ const Filter = ({ doFilter }) => {
 export default Filter;
 
 Filter.propTypes = {
-  doFilter: PropTypes.func
+  doFilter: PropTypes.func.isRequired
 };
