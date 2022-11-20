@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import styles from '../styles/layout.module.scss';
+import styles from '../../styles/components/ui/layout.module.scss';
 export const Layout = ({ children }) => {
   return <div className={styles.container}>{children}</div>;
 };
