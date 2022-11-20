@@ -1,0 +1,30 @@
+.error {
+  border-color: red;
+}
+.error-message {
+  color: red;
+  font-size: 12px;
+  text-align: right;
+}
+.div-flex {
+  display: flex;
+  justify-content: space-between;
+  width: 400px;
+  margin-bottom: 5px;
+  .div-column {
+    display: flex;
+    flex-direction: column;
+    input {
+      width: 300px;
+    }
+  }
+}
+.div-right {
+  display: flex;
+  flex-direction: row-reverse !important;
+  width: 400px;
+  margin-bottom: 5px;
+}
+.right {
+  text-align: right;
+}

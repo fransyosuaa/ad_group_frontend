@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import PropTypes from 'prop-types';
 import styles from '../../styles/components/ui/filter.module.scss';
 
 const Filter = ({ doFilter }) => {
@@ -24,5 +25,5 @@ const Filter = ({ doFilter }) => {
 export default Filter;
 
 Filter.propTypes = {
-  doFilter: () => {}
+  doFilter: PropTypes.func
 };

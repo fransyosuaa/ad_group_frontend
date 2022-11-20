@@ -7,6 +7,9 @@ const Navigation = () => {
       <nav className={styles.nav}>
         <ul>
           <li>
+            <Link href="/ip-management">Home</Link>
+          </li>
+          <li>
             <Link href="/user-log">User Log</Link>
           </li>
           <li>

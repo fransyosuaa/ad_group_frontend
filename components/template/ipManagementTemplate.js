@@ -34,7 +34,9 @@ const IpManagementTemplate = () => {
         </div>
         <div className={styles['section-two']}>
           <div className={styles.create}>
-            <button>Create new</button>
+            <Link href="/ip-management/create">
+              <button>Create new</button>
+            </Link>
           </div>
           <div className={styles.table}>
             <div className={styles.table.div}>
