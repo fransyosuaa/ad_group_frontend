@@ -4,7 +4,7 @@ import styles from '../styles/Home.module.css';
 
 const Home = () => {
   return (
-    <div className={styles.container}>
+    <div className="container">
       <main className={styles.main}>
         <Card>
           <RegisterLogin />

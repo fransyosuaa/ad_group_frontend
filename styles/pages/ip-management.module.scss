@@ -1,0 +1,45 @@
+.filter-by {
+  label {
+    margin-right: 30px;
+  }
+}
+
+.section-two {
+  margin-top: 24px;
+
+  .create {
+    display: flex;
+    flex-direction: row-reverse;
+  }
+
+  .table {
+    width: 100%;
+
+    div {
+      display: flex;
+      flex-direction: row;
+
+      div {
+        justify-content: center;
+        font-weight: 600;
+        width: 30%;
+      }
+      div:nth-child(2) {
+        width: 40%;
+      }
+    }
+  }
+}
+
+.table-child {
+  display: flex;
+  flex-direction: row;
+
+  div {
+    justify-content: left !important;
+    font-weight: 400 !important;
+  }
+  div:nth-child(3) {
+    justify-content: center !important;
+  }
+}

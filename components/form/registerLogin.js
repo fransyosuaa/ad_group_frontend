@@ -25,6 +25,7 @@ const RegisterLogin = () => {
     try {
       setIsLoading(true);
       // your code here
+      window.location.href = '/ip-management';
     } catch (error) {
       console.log(error);
     } finally {
