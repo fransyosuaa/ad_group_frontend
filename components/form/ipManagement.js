@@ -1,10 +1,18 @@
 import Link from 'next/link';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Filter from '../ui/filter';
 import styles from '../../styles/components/form/ipManagement.module.scss';
 import IpLabelManagementList from '../ui/ipLabelManagementList';
+import { getWithExpiry } from '../../utils';
+import { keyLocalStorage } from '../../constants';
 
 const IpManagement = () => {
+  useEffect(() => {
+    if (!getWithExpiry(keyLocalStorage)) {
+      window.location.href = '/';
+    }
+  }, []);
+
   const [filterType, setFilterType] = useState('ip');
 
   const filterTypeHandler = (e) => {

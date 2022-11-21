@@ -1,33 +1,52 @@
 import { useRef, useState } from 'react';
+import axios from 'axios';
 import Loader from '../ui/loader';
-import { validateLogin } from '../../utils';
+import { setWithExpiry, validateLogin } from '../../utils';
 import styles from '../../styles/components/form/registerLogin.module.scss';
+import { keyLocalStorage } from '../../constants';
 
 const RegisterLogin = () => {
   const emailRef = useRef();
   const passwordRef = useRef();
   const [isLoading, setIsLoading] = useState(false);
-  const [isLogin, setIsLogin] = useState(true);
+  const [modeAuth, setModeAuth] = useState('login');
   const [error, setError] = useState({});
+
+  const changeModeHandler = () => {
+    const newMode = modeAuth === 'login' ? 'register' : 'login';
+    setModeAuth(newMode);
+  };
 
   const doLogin = async (e) => {
     e.preventDefault();
+    setError({});
 
     const payload = {
       email: emailRef.current.value,
       password: passwordRef.current.value
     };
-    const err = validateLogin(payload);
-    if (Object.keys(err).length > 0) {
-      setError(err);
+    const validatedPayload = validateLogin(payload);
+    if (Object.keys(validatedPayload).length > 0) {
+      setError(validatedPayload);
       return;
     }
     try {
       setIsLoading(true);
-      // your code here
-      window.location.href = '/ip-management';
+      const resp = await axios.post(`/api/auth?type=${modeAuth}`, payload);
+      if (modeAuth === 'register') {
+        alert('Registration done! Please login');
+      }
+      if (modeAuth === 'login') {
+        const {
+          data: { data: response }
+        } = resp;
+        setWithExpiry(keyLocalStorage, response, 5000);
+        window.location.href = '/ip-management';
+      }
     } catch (error) {
-      console.log(error);
+      setError({
+        api: error?.response?.data?.message || error?.message
+      });
     } finally {
       setIsLoading(false);
     }
@@ -65,11 +84,16 @@ const RegisterLogin = () => {
           </div>
         </div>
         <div className={styles['div-flex']}>
-          <button onClick={doLogin}>{isLogin ? 'Login' : 'Register'}</button>
-          <a onClick={() => setIsLogin(!isLogin)}>
-            {isLogin ? "Don't have account, regist here" : 'Have account? Login here'}
+          <button onClick={doLogin}>{modeAuth === 'login' ? 'Login' : 'Register'}</button>
+          <a onClick={changeModeHandler}>
+            {modeAuth === 'login' ? "Don't have account, regist here" : 'Have account? Login here'}
           </a>
         </div>
+        {error?.api ? (
+          <div className={styles.right}>
+            <span className={styles['error-message']}>{error?.api}</span>
+          </div>
+        ) : null}
       </form>
     </div>
   );
