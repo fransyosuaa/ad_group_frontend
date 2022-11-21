@@ -4,26 +4,34 @@ import Loader from '../ui/loader';
 import styles from '../../styles/components/form/createEditIpLabel.module.scss';
 import { getWithExpiry, validateCreateIpForm } from '../../utils';
 import { keyLocalStorage } from '../../constants';
+import axios from 'axios';
 
 const CreateEditIpLabel = (props) => {
-  useEffect(() => {
-    if (!getWithExpiry(keyLocalStorage)) {
-      window.location.href = '/';
-    }
-  }, []);
-
   const { mode } = props;
   const ipRef = useRef();
   const labelRef = useRef();
-  const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState({});
+  const [isLoading, setIsLoading] = useState(false);
+  const [token, setToken] = useState('');
+  const [email, setEmail] = useState('');
 
-  const submit = (e) => {
+  useEffect(() => {
+    const locStorage = getWithExpiry(keyLocalStorage);
+    if (!locStorage) {
+      window.location.href = '/';
+    }
+    const { token: tkn, email: mail } = locStorage;
+    setToken(tkn);
+    setEmail(mail);
+  }, []);
+
+  const submit = async (e) => {
     e.preventDefault();
 
     const payload = {
-      ip: ipRef.current.value,
-      label: labelRef.current.value
+      ipAddress: ipRef.current.value,
+      label: labelRef.current.value,
+      email
     };
     const err = validateCreateIpForm(payload);
     if (Object.keys(err).length > 0) {
@@ -33,13 +41,23 @@ const CreateEditIpLabel = (props) => {
     try {
       setIsLoading(true);
       if (mode === 'create') {
-        // do create
+        await axios.post('/api/ipLabel', payload, {
+          headers: {
+            'x-access-token': token
+          }
+        });
       } else if (mode === 'edit') {
-        // do edit
+        await axios.put('/api/ipLabel', payload, {
+          headers: {
+            'x-access-token': token
+          }
+        });
       }
       window.location.href = '/ip-management';
     } catch (error) {
-      console.log(error);
+      setError({
+        api: error?.response?.data?.message || error?.message
+      });
     } finally {
       setIsLoading(false);
     }
@@ -55,8 +73,13 @@ const CreateEditIpLabel = (props) => {
         <div className={styles['div-flex']}>
           <label>Ip Address</label>
           <div className={styles['div-column']}>
-            <input className={error?.ip ? styles.error : ''} type="text" ref={ipRef} name="ip" />
-            <span className={styles['error-message']}>{error?.ip}</span>
+            <input
+              className={error?.ipAddress ? styles.error : ''}
+              type="text"
+              ref={ipRef}
+              name="ipAddress"
+            />
+            <span className={styles['error-message']}>{error?.ipAddress}</span>
           </div>
         </div>
         <div className={styles['div-flex']}>
@@ -74,6 +97,11 @@ const CreateEditIpLabel = (props) => {
         <div className={styles['div-right']}>
           <button onClick={submit}>Save</button>
         </div>
+        {error?.api ? (
+          <div className={styles.right}>
+            <span className={styles['error-message']}>{error?.api}</span>
+          </div>
+        ) : null}
       </form>
     </div>
   );

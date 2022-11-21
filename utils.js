@@ -20,10 +20,10 @@ export const isIpFormatPassed = (ip) => {
   return true;
 };
 
-export const validateCreateIpForm = ({ ip, label }) => {
+export const validateCreateIpForm = ({ ipAddress, label }) => {
   const error = {};
-  if (!isIpFormatPassed(ip)) {
-    _.setWith(error, 'ip', 'IP Address is not valid');
+  if (!isIpFormatPassed(ipAddress)) {
+    _.setWith(error, 'ipAddress', 'IP Address is not valid');
   }
   if (label.length < 3) {
     _.setWith(error, 'label', 'Label must be at least 3 characters');
