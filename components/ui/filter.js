@@ -1,21 +1,19 @@
-import { useState } from 'react';
 import PropTypes from 'prop-types';
 import styles from '../../styles/components/ui/filter.module.scss';
 
-const Filter = ({ doFilter }) => {
-  const [filterText, setFilterText] = useState('');
+const Filter = ({ doFilter, value, textChangeHandler }) => {
   const filterHandler = (e) => {
-    setFilterText(e.target.value);
+    textChangeHandler(e.target.value);
   };
   const searchHandler = () => {
-    doFilter(filterText);
+    doFilter();
   };
 
   return (
     <>
       <div>
         <label className={styles.label}>Filter</label>
-        <input className={styles.input} type="text" value={filterText} onChange={filterHandler} />
+        <input className={styles.input} type="text" value={value} onChange={filterHandler} />
         <button onClick={searchHandler}>Search</button>
       </div>
     </>
@@ -25,5 +23,7 @@ const Filter = ({ doFilter }) => {
 export default Filter;
 
 Filter.propTypes = {
-  doFilter: PropTypes.func.isRequired
+  doFilter: PropTypes.func.isRequired,
+  value: PropTypes.string.isRequired,
+  textChangeHandler: PropTypes.func.isRequired
 };

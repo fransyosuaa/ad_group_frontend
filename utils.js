@@ -13,9 +13,16 @@ export const validateLogin = ({ email, password }) => {
   return error;
 };
 
+export const isIpFormatPassed = (ip) => {
+  if (!ip.match(ipFormat)) {
+    return false;
+  }
+  return true;
+};
+
 export const validateCreateIpForm = ({ ip, label }) => {
   const error = {};
-  if (!ip.match(ipFormat)) {
+  if (!isIpFormatPassed(ip)) {
     _.setWith(error, 'ip', 'IP Address is not valid');
   }
   if (label.length < 3) {

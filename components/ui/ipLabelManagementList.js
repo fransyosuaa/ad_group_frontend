@@ -1,7 +1,8 @@
+import PropTypes from 'prop-types';
 import Link from 'next/link';
 import styles from '../../styles/components/ui/ipLabelManagementList.module.scss';
 
-const IpLabelManagementList = () => {
+const IpLabelManagementList = ({ ipList }) => {
   return (
     <>
       <div className={styles.table}>
@@ -10,136 +11,25 @@ const IpLabelManagementList = () => {
           <div>Label</div>
           <div>Action</div>
         </div>
-        {/* should in loop here */}
-        <div className={styles['table-child']}>
-          <div>172.20.20.12</div>
-          <div>Stark Corporation</div>
-          <div>
-            <Link href="blablabla/id">Edit</Link>
-          </div>
-        </div>
-        <div className={styles['table-child']}>
-          <div>172.20.20.12</div>
-          <div>Stark Corporation</div>
-          <div>
-            <Link href="blablabla/id">Edit</Link>
-          </div>
-        </div>
-        <div className={styles['table-child']}>
-          <div>172.20.20.12</div>
-          <div>Stark Corporation</div>
-          <div>
-            <Link href="blablabla/id">Edit</Link>
-          </div>
-        </div>
-        <div className={styles['table-child']}>
-          <div>172.20.20.12</div>
-          <div>Stark Corporation</div>
-          <div>
-            <Link href="blablabla/id">Edit</Link>
-          </div>
-        </div>
-        <div className={styles['table-child']}>
-          <div>172.20.20.12</div>
-          <div>Stark Corporation</div>
-          <div>
-            <Link href="blablabla/id">Edit</Link>
-          </div>
-        </div>
-        <div className={styles['table-child']}>
-          <div>172.20.20.12</div>
-          <div>Stark Corporation</div>
-          <div>
-            <Link href="blablabla/id">Edit</Link>
-          </div>
-        </div>
-        <div className={styles['table-child']}>
-          <div>172.20.20.12</div>
-          <div>Stark Corporation</div>
-          <div>
-            <Link href="blablabla/id">Edit</Link>
-          </div>
-        </div>
-        <div className={styles['table-child']}>
-          <div>172.20.20.12</div>
-          <div>Stark Corporation</div>
-          <div>
-            <Link href="blablabla/id">Edit</Link>
-          </div>
-        </div>
-        <div className={styles['table-child']}>
-          <div>172.20.20.12</div>
-          <div>Stark Corporation</div>
-          <div>
-            <Link href="blablabla/id">Edit</Link>
-          </div>
-        </div>
-        <div className={styles['table-child']}>
-          <div>172.20.20.12</div>
-          <div>Stark Corporation</div>
-          <div>
-            <Link href="blablabla/id">Edit</Link>
-          </div>
-        </div>
-        <div className={styles['table-child']}>
-          <div>172.20.20.12</div>
-          <div>Stark Corporation</div>
-          <div>
-            <Link href="blablabla/id">Edit</Link>
-          </div>
-        </div>
-        <div className={styles['table-child']}>
-          <div>172.20.20.12</div>
-          <div>Stark Corporation</div>
-          <div>
-            <Link href="blablabla/id">Edit</Link>
-          </div>
-        </div>
-        <div className={styles['table-child']}>
-          <div>172.20.20.12</div>
-          <div>Stark Corporation</div>
-          <div>
-            <Link href="blablabla/id">Edit</Link>
-          </div>
-        </div>
-        <div className={styles['table-child']}>
-          <div>172.20.20.12</div>
-          <div>Stark Corporation</div>
-          <div>
-            <Link href="blablabla/id">Edit</Link>
-          </div>
-        </div>
-        <div className={styles['table-child']}>
-          <div>172.20.20.12</div>
-          <div>Stark Corporation</div>
-          <div>
-            <Link href="blablabla/id">Edit</Link>
-          </div>
-        </div>
-        <div className={styles['table-child']}>
-          <div>172.20.20.12</div>
-          <div>Stark Corporation</div>
-          <div>
-            <Link href="blablabla/id">Edit</Link>
-          </div>
-        </div>
-        <div className={styles['table-child']}>
-          <div>172.20.20.12</div>
-          <div>Stark Corporation</div>
-          <div>
-            <Link href="blablabla/id">Edit</Link>
-          </div>
-        </div>
-        <div className={styles['table-child']}>
-          <div>172.20.20.12</div>
-          <div>Stark Corporation</div>
-          <div>
-            <Link href="blablabla/id">Edit</Link>
-          </div>
-        </div>
+
+        {ipList.map((ipLabel) => {
+          return (
+            <div key={ipLabel.id} className={styles['table-child']}>
+              <div>{ipLabel.ipAddress}</div>
+              <div>{ipLabel.label}</div>
+              <div>
+                <Link href={`/ip-management/edit/${ipLabel.id}`}>Edit</Link>
+              </div>
+            </div>
+          );
+        })}
       </div>
     </>
   );
 };
 
 export default IpLabelManagementList;
+
+IpLabelManagementList.propTypes = {
+  ipList: PropTypes.array.isRequired
+};
