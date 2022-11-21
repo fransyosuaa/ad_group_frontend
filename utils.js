@@ -75,5 +75,5 @@ export const getWithExpiry = (key) => {
 
 export const doLogout = (email) => {
   const payload = { email };
-  axios.post(getFullPath('/api/auth/logout'), payload);
+  axios.post('/api/auth/logout', payload);
 };

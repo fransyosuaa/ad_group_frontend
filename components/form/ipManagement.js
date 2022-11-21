@@ -21,28 +21,33 @@ const IpManagement = () => {
       window.location.href = '/';
       return;
     }
-    const fetchData = async () => {
-      const { token: tkn } = locStorage;
-      setToken(tkn);
-      setIsLoading(true);
-      const resp = await axios.get('/api/ipLabel', {
-        headers: {
-          'x-access-token': tkn
-        },
-        params: {
-          page: 1,
-          perPage: 1000
-        }
-      });
-
-      const {
-        data: { data: response }
-      } = resp;
-      setIpList(response);
-      setIsLoading(false);
-    };
-    fetchData();
+    const { token: tkn } = locStorage;
+    setToken(tkn);
   }, []);
+
+  useEffect(() => {
+    if (token !== '') {
+      const fetchData = async () => {
+        setIsLoading(true);
+        const resp = await axios.get('/api/ipLabel', {
+          headers: {
+            'x-access-token': token
+          },
+          params: {
+            page: 1,
+            perPage: 1000
+          }
+        });
+
+        const {
+          data: { data: response }
+        } = resp;
+        setIpList(response);
+        setIsLoading(false);
+      };
+      fetchData();
+    }
+  }, [token]);
 
   const getIpLogs = async (params) => {
     try {

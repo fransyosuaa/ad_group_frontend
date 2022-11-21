@@ -13,7 +13,7 @@ const Navigation = () => {
             <Link href="/user-log">User Log</Link>
           </li>
           <li>
-            <Link href="/">Logout</Link>
+            <Link href="/logout">Logout</Link>
           </li>
         </ul>
       </nav>
