@@ -40,7 +40,7 @@ const RegisterLogin = () => {
         const {
           data: { data: response }
         } = resp;
-        setWithExpiry(keyLocalStorage, response, 5000);
+        setWithExpiry(keyLocalStorage, response, 90 * 60 * 1000); // set 1.5h ttl
         window.location.href = '/ip-management';
       }
     } catch (error) {

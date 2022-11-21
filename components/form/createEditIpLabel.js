@@ -1,10 +1,17 @@
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 import Loader from '../ui/loader';
 import styles from '../../styles/components/form/createEditIpLabel.module.scss';
-import { validateCreateIpForm } from '../../utils';
+import { getWithExpiry, validateCreateIpForm } from '../../utils';
+import { keyLocalStorage } from '../../constants';
 
 const CreateEditIpLabel = (props) => {
+  useEffect(() => {
+    if (!getWithExpiry(keyLocalStorage)) {
+      window.location.href = '/';
+    }
+  }, []);
+
   const { mode } = props;
   const ipRef = useRef();
   const labelRef = useRef();

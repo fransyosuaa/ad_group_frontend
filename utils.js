@@ -1,3 +1,4 @@
+import axios from 'axios';
 import _ from 'lodash';
 import { mailFormat, ipFormat } from './constants';
 
@@ -56,4 +57,9 @@ export const getWithExpiry = (key) => {
     return null;
   }
   return item.value;
+};
+
+export const doLogout = (email) => {
+  const payload = { email };
+  axios.post(getFullPath('/api/auth/logout'), payload);
 };

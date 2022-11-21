@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { getFullPath } from '../../utils';
+import { getFullPath } from '../../../utils';
 
 const handler = async (req, res) => {
   try {
