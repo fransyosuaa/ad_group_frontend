@@ -19,6 +19,7 @@ const IpManagement = () => {
     const locStorage = getWithExpiry(keyLocalStorage);
     if (!locStorage) {
       window.location.href = '/';
+      return;
     }
     const fetchData = async () => {
       const { token: tkn } = locStorage;

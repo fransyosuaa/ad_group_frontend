@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { createPortal } from 'react-dom';
+import PropTypes from 'prop-types';
 
 const Portal = ({ children }) => {
   const [mounted, setMounted] = useState(false);
@@ -14,3 +15,7 @@ const Portal = ({ children }) => {
 };
 
 export default Portal;
+
+Portal.propTypes = {
+  children: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.node), PropTypes.node]).isRequired
+};

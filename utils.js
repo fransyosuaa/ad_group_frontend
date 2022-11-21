@@ -13,6 +13,13 @@ export const validateLogin = ({ email, password }) => {
   return error;
 };
 
+export const isEmailFormatPassed = (email) => {
+  if (!email.match(mailFormat)) {
+    return false;
+  }
+  return true;
+};
+
 export const isIpFormatPassed = (ip) => {
   if (!ip.match(ipFormat)) {
     return false;

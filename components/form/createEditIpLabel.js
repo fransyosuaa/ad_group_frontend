@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
+import axios from 'axios';
 import Loader from '../ui/loader';
 import styles from '../../styles/components/form/createEditIpLabel.module.scss';
 import { getWithExpiry, validateCreateIpForm } from '../../utils';
 import { keyLocalStorage } from '../../constants';
-import axios from 'axios';
 
 const CreateEditIpLabel = (props) => {
   const { mode, id } = props;
@@ -19,6 +19,7 @@ const CreateEditIpLabel = (props) => {
     const locStorage = getWithExpiry(keyLocalStorage);
     if (!locStorage) {
       window.location.href = '/';
+      return;
     }
     const { token: tkn, email: mail } = locStorage;
     setToken(tkn);

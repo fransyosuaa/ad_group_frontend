@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import styles from '../../styles/components/ui/filter.module.scss';
 
-const Filter = ({ doFilter, value, textChangeHandler }) => {
+const Filter = ({ placeholder, doFilter, value, textChangeHandler }) => {
   const filterHandler = (e) => {
     textChangeHandler(e.target.value);
   };
@@ -13,7 +13,13 @@ const Filter = ({ doFilter, value, textChangeHandler }) => {
     <>
       <div>
         <label className={styles.label}>Filter</label>
-        <input className={styles.input} type="text" value={value} onChange={filterHandler} />
+        <input
+          className={styles.input}
+          type="text"
+          value={value}
+          onChange={filterHandler}
+          placeholder={placeholder}
+        />
         <button onClick={searchHandler}>Search</button>
       </div>
     </>
@@ -25,5 +31,6 @@ export default Filter;
 Filter.propTypes = {
   doFilter: PropTypes.func.isRequired,
   value: PropTypes.string.isRequired,
-  textChangeHandler: PropTypes.func.isRequired
+  textChangeHandler: PropTypes.func.isRequired,
+  placeholder: PropTypes.string
 };

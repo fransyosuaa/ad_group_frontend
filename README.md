@@ -24,3 +24,16 @@ $ npm i
 ```
 $ npm run start
 ```
+
+## User type
+
+In this system, I create two user-type, `user` and `admin`.
+
+The difference between them, `user` only can see his/her only activity log, meanwhile for `admin` can see all users (also has filter feature)
+
+For `admin`,
+
+```
+email : admin@gmail.com
+password : p@ssw0rdsss
+```
