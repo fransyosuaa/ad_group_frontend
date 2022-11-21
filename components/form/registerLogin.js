@@ -47,7 +47,6 @@ const RegisterLogin = () => {
       setError({
         api: error?.response?.data?.message || error?.message
       });
-    } finally {
       setIsLoading(false);
     }
   };

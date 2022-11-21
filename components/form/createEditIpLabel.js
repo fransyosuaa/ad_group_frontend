@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import Loader from '../ui/loader';
 import styles from '../../styles/components/form/createEditIpLabel.module.scss';
@@ -7,9 +7,9 @@ import { keyLocalStorage } from '../../constants';
 import axios from 'axios';
 
 const CreateEditIpLabel = (props) => {
-  const { mode } = props;
-  const ipRef = useRef();
-  const labelRef = useRef();
+  const { mode, id } = props;
+  const [ipAddress, setIpAddress] = useState('');
+  const [label, setLabel] = useState('');
   const [error, setError] = useState({});
   const [isLoading, setIsLoading] = useState(false);
   const [token, setToken] = useState('');
@@ -25,12 +25,36 @@ const CreateEditIpLabel = (props) => {
     setEmail(mail);
   }, []);
 
+  useEffect(() => {
+    if (id && email !== '' && token !== '') {
+      const fetchData = async () => {
+        setIsLoading(true);
+        const resp = await axios.get('/api/ipLabel', {
+          headers: {
+            'x-access-token': token
+          },
+          params: { id }
+        });
+
+        const {
+          data: { data: response }
+        } = resp;
+        setIpAddress(response.ipAddress);
+        setLabel(response.label);
+        setIsLoading(false);
+      };
+      if (mode === 'edit') {
+        fetchData();
+      }
+    }
+  }, [id, email, token]);
+
   const submit = async (e) => {
     e.preventDefault();
 
     const payload = {
-      ipAddress: ipRef.current.value,
-      label: labelRef.current.value,
+      ipAddress,
+      label,
       email
     };
     const err = validateCreateIpForm(payload);
@@ -58,7 +82,6 @@ const CreateEditIpLabel = (props) => {
       setError({
         api: error?.response?.data?.message || error?.message
       });
-    } finally {
       setIsLoading(false);
     }
   };
@@ -68,7 +91,7 @@ const CreateEditIpLabel = (props) => {
   }
 
   return (
-    <div>
+    <div className={styles['div-center']}>
       <form>
         <div className={styles['div-flex']}>
           <label>Ip Address</label>
@@ -76,8 +99,10 @@ const CreateEditIpLabel = (props) => {
             <input
               className={error?.ipAddress ? styles.error : ''}
               type="text"
-              ref={ipRef}
+              value={ipAddress}
+              onChange={(e) => setIpAddress(e.target.value)}
               name="ipAddress"
+              disabled={mode === 'edit'}
             />
             <span className={styles['error-message']}>{error?.ipAddress}</span>
           </div>
@@ -88,7 +113,8 @@ const CreateEditIpLabel = (props) => {
             <input
               className={error?.label ? styles.error : ''}
               type="text"
-              ref={labelRef}
+              value={label}
+              onChange={(e) => setLabel(e.target.value)}
               name="label"
             />
             <span className={styles['error-message']}>{error?.label}</span>
@@ -110,5 +136,6 @@ const CreateEditIpLabel = (props) => {
 export default CreateEditIpLabel;
 
 CreateEditIpLabel.propTypes = {
-  mode: PropTypes.string.isRequired
+  mode: PropTypes.string.isRequired,
+  id: PropTypes.string
 };

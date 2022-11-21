@@ -16,7 +16,6 @@ const IpManagement = () => {
   const [ipList, setIpList] = useState([]);
 
   useEffect(() => {
-    setIsLoading(true);
     const locStorage = getWithExpiry(keyLocalStorage);
     if (!locStorage) {
       window.location.href = '/';
@@ -39,9 +38,9 @@ const IpManagement = () => {
         data: { data: response }
       } = resp;
       setIpList(response);
+      setIsLoading(false);
     };
     fetchData();
-    setIsLoading(false);
   }, []);
 
   const getIpLogs = async (params) => {

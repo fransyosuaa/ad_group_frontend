@@ -8,8 +8,11 @@ body {
 
 .container {
   padding: 0 2rem;
-  max-width: 36rem;
+  width: fit-content;
   margin: 3rem auto 6rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 button {

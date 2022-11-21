@@ -1,0 +1,24 @@
+.fullwidth {
+  width: 900px;
+  margin-top: 24px;
+}
+.table {
+  display: flex;
+  flex-direction: row;
+
+  div {
+    justify-content: center;
+    font-weight: 600;
+    width: 20%;
+  }
+}
+
+.table-child {
+  display: flex;
+  flex-direction: row;
+
+  div {
+    justify-content: left;
+    width: 20%;
+  }
+}
